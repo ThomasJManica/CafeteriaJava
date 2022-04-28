@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 public class Pedidos {
 
-    public static boolean SalvarPedido(int index, int quantidade, int idDoUsuario) {
+    public static boolean SalvarPedido(int id, int quantidade, int idDoUsuario) {
         String query = "insert into pedidos "
                 + "(id_usuario, id_produto, quantidade, data_do_pedido) "
                 + " values "
                 + "("
                 + idDoUsuario + ", "
-                + index + ", "
+                + id + ", "
                 + quantidade + ","
                 + "now())";
         try (Statement stmt = ConexaoPostgres.CriaConexao()) {

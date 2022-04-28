@@ -1,13 +1,14 @@
 package Negocio;
 
 import Apresentacao.TelaAlerta;
+import DTOs.ProdutosDTO;
 import Persistencia.Produtos;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class Produto {
 
-    public static ArrayList<String> RetornaComidas() {
+    public static ArrayList<ProdutosDTO> RetornaComidas() {
         return Produtos.RetornaProdutos();
     }
 

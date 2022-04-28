@@ -10,7 +10,7 @@ public class TelaPedidos extends javax.swing.JFrame {
         initComponents();
         ArrayList<PedidosDTO> pedidos = Pedidos.PedidosDoUsuario(idDoUsuario);
         DefaultTableModel dadosDaTabela = (DefaultTableModel) TabelaPedidos.getModel();
-        dadosDaTabela.removeRow(0);dadosDaTabela.removeRow(0);dadosDaTabela.removeRow(0);dadosDaTabela.removeRow(0);
+        
         for (PedidosDTO pedido : pedidos){
             String dados[] = {pedido.descricao, pedido.quantidade.toString(), pedido.preco.toString(), pedido.data_do_pedido.toString()};
             dadosDaTabela.addRow(dados);
@@ -24,16 +24,13 @@ public class TelaPedidos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaPedidos = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Seus pedidos");
 
         TabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Produto", "Quantidade", "Preço total", "Data do pedido"

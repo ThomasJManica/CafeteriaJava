@@ -1,17 +1,23 @@
 package Apresentacao;
 
+import DTOs.ProdutosDTO;
 import Negocio.PedidosUsuario;
 import Negocio.Produto;
-import javax.swing.DefaultComboBoxModel;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 public class TelaRealizarPedidos extends javax.swing.JFrame {
+
     private int idDoUsuario;
-    
+
     public TelaRealizarPedidos(int idDoUsuario) {
         initComponents();
         this.idDoUsuario = idDoUsuario;
-        ComboBoxComida.setModel(new DefaultComboBoxModel(Produto.RetornaComidas().toArray()));
+        ArrayList<ProdutosDTO> produtos = new ArrayList();
+        produtos = Produto.RetornaComidas();
+        for (ProdutosDTO produto : produtos) {
+            ComboBoxComida.addItem(produto);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -27,8 +33,8 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
         TextoQuantidade = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(null);
 
-        ComboBoxComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ComboBoxComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboBoxComidaActionPerformed(evt);
@@ -69,22 +75,20 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(ButtonCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                         .addComponent(ButtonPedidos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ButtonFazerPedido))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TextoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                                .addComponent(ComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -110,7 +114,7 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonFazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonFazerPedidoActionPerformed
-        PedidosUsuario.FazerPedido(ComboBoxComida.getSelectedIndex(), (int) TextoQuantidade.getValue(), idDoUsuario);
+        PedidosUsuario.FazerPedido((ProdutosDTO) ComboBoxComida.getSelectedItem(), (int) TextoQuantidade.getValue(), idDoUsuario);
     }//GEN-LAST:event_ButtonFazerPedidoActionPerformed
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
@@ -159,7 +163,7 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
     private javax.swing.JButton ButtonCancelar;
     private javax.swing.JButton ButtonFazerPedido;
     private javax.swing.JButton ButtonPedidos;
-    private javax.swing.JComboBox<String> ComboBoxComida;
+    private javax.swing.JComboBox<ProdutosDTO> ComboBoxComida;
     private javax.swing.JSpinner TextoQuantidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

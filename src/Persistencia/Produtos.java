@@ -1,22 +1,25 @@
 package Persistencia;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import DTOs.ProdutosDTO;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Produtos {
 
-    public static ArrayList<String> RetornaProdutos() {
-        ArrayList<String> produtos = new ArrayList();
-        String query = "select descricao"
+    public static ArrayList<ProdutosDTO> RetornaProdutos() {
+        ArrayList<ProdutosDTO> produtos = new ArrayList();
+        String query = "select id, descricao, preco"
                 + "  from produtos ";
         try (Statement stmt = ConexaoPostgres.CriaConexao();
                 ResultSet rs = stmt.executeQuery(query);) {
 
             while (rs.next()) {
-                produtos.add(rs.getString("descricao"));
+               ProdutosDTO produtosDTO = new ProdutosDTO();
+               produtosDTO.id = rs.getInt("id");
+                produtosDTO.descricao = rs.getString("descricao");
+                produtosDTO.preco = rs.getInt("preco");
+                produtos.add(produtosDTO);
             }
         } catch (Exception e) {
             System.out.println(e);

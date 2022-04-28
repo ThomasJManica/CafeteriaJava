@@ -10,14 +10,14 @@ public class ConexaoPostgres {
 
     private final static String URL = "jdbc:postgresql://localhost:5432/cafeteria";
     private final static String USER = "postgres";
-    private final static String PASSWORD = "postgres";
+    private final static String PASSWORD = "root";
 
     public static Statement CriaConexao() {
         try {
             Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
             return con.createStatement();
         } catch (Exception ex) {
-            JPanel alerta = new TelaAlerta("Erro ao conectar com o banco de dados, informa o setor de TI reponsável: " + ex);
+            JPanel alerta = new TelaAlerta("Erro ao conectar com o banco de dados, informa o setor de TI reponsável: \n" + ex);
             alerta.setVisible(true);
         }
         return null;

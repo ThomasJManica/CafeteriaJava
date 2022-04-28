@@ -13,7 +13,7 @@ public class TelaAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         ButtonVoltar = new javax.swing.JButton();
-        ButtonCadastrarProdutos = new javax.swing.JButton();
+        ButtonProdutos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -24,10 +24,10 @@ public class TelaAdmin extends javax.swing.JFrame {
             }
         });
 
-        ButtonCadastrarProdutos.setText("Cadastrar produtos");
-        ButtonCadastrarProdutos.addActionListener(new java.awt.event.ActionListener() {
+        ButtonProdutos.setText("Produtos");
+        ButtonProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonCadastrarProdutosActionPerformed(evt);
+                ButtonProdutosActionPerformed(evt);
             }
         });
 
@@ -39,14 +39,14 @@ public class TelaAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonVoltar)
-                    .addComponent(ButtonCadastrarProdutos))
-                .addContainerGap(255, Short.MAX_VALUE))
+                    .addComponent(ButtonProdutos))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ButtonCadastrarProdutos)
+                .addComponent(ButtonProdutos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(ButtonVoltar)
                 .addContainerGap())
@@ -61,11 +61,11 @@ public class TelaAdmin extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_ButtonVoltarActionPerformed
 
-    private void ButtonCadastrarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCadastrarProdutosActionPerformed
+    private void ButtonProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonProdutosActionPerformed
         JFrame cadastroProdutos = new TelaCadastroProdutos();
         cadastroProdutos.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_ButtonCadastrarProdutosActionPerformed
+    }//GEN-LAST:event_ButtonProdutosActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -76,7 +76,7 @@ public class TelaAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonCadastrarProdutos;
+    private javax.swing.JButton ButtonProdutos;
     private javax.swing.JButton ButtonVoltar;
     // End of variables declaration//GEN-END:variables
 }
