@@ -57,4 +57,19 @@ public class Produtos {
         }
         return true;
     }
+    
+    public static boolean Alterar(Integer id, String descricao, Integer valor) {
+        String query = "update produtos"
+                + "        set descricao = '" + descricao + "',"
+                + "            preco = " + valor
+                + "      where id = "+id;
+        try ( Statement stmt = ConexaoPostgres.CriaConexao()) {
+
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
+    }
 }

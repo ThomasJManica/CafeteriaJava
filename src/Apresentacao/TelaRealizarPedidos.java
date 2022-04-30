@@ -177,6 +177,7 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonCancelarPedidoActionPerformed
 
     private void ButtonAlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAlterarPedidoActionPerformed
+        PedidosUsuario.Alterar(Integer.parseInt(TabelaPedidos.getModel().getValueAt(TabelaPedidos.getSelectedRow(), 0).toString()),(ProdutosDTO) ComboBoxComida.getSelectedItem(), (int) TextoQuantidade.getValue());
         CarregarPedidos();
     }//GEN-LAST:event_ButtonAlterarPedidoActionPerformed
 

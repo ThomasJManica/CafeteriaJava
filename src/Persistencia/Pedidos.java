@@ -16,7 +16,7 @@ public class Pedidos {
                 + id + ", "
                 + quantidade + ","
                 + "now())";
-        try (Statement stmt = ConexaoPostgres.CriaConexao()) {
+        try ( Statement stmt = ConexaoPostgres.CriaConexao()) {
 
             stmt.executeUpdate(query);
         } catch (Exception e) {
@@ -35,10 +35,9 @@ public class Pedidos {
                 + "       pedidos.data_do_pedido data"
                 + "  from pedidos, produtos"
                 + " where pedidos.id_produto = produtos.id"
-                + "   and pedidos.id_usuario = " + idDoUsuario 
+                + "   and pedidos.id_usuario = " + idDoUsuario
                 + " order by 1";
-        try (Statement stmt = ConexaoPostgres.CriaConexao();
-                ResultSet rs = stmt.executeQuery(query);) {
+        try ( Statement stmt = ConexaoPostgres.CriaConexao();  ResultSet rs = stmt.executeQuery(query);) {
 
             while (rs.next()) {
                 PedidosDTO pedidosdto = new PedidosDTO();
@@ -54,11 +53,27 @@ public class Pedidos {
         }
         return pedidos;
     }
-    
-    public static boolean ExcluirProduto(Integer id) {
+
+    public static boolean ExcluirPedido(Integer id) {
         String query = "delete from pedidos"
                 + " where id = " + id;
-        try (Statement stmt = ConexaoPostgres.CriaConexao()) {
+        try ( Statement stmt = ConexaoPostgres.CriaConexao()) {
+
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean AlterarPedido(Integer id, Integer id_produto, Integer quantidade) {
+        String query = "update pedidos"
+                + "        set id_produto = " + id_produto + ","
+                + "            quantidade = " + quantidade + ","
+                + "            data_do_pedido = now()"
+                + "      where id = "+id;
+        try ( Statement stmt = ConexaoPostgres.CriaConexao()) {
 
             stmt.executeUpdate(query);
         } catch (Exception e) {

@@ -65,7 +65,7 @@ public class TelaCadastroProdutos extends javax.swing.JFrame {
             }
         });
 
-        ButtonSalvar.setText("Salvar");
+        ButtonSalvar.setText("Alterar produto");
         ButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonSalvarActionPerformed(evt);
@@ -120,9 +120,9 @@ public class TelaCadastroProdutos extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41)
-                                .addComponent(ButtonSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                .addComponent(ButtonSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(59, 59, 59)
-                                .addComponent(ButtonExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)))
+                                .addComponent(ButtonExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +175,7 @@ public class TelaCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonAdicionarActionPerformed
 
     private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
+        Produto.Alterar(Integer.parseInt(TabelaProdutos.getModel().getValueAt(TabelaProdutos.getSelectedRow(), 0).toString()), TextoDescricao.getText(), (int) TextoValor.getValue());
         PopularTabela();
     }//GEN-LAST:event_ButtonSalvarActionPerformed
 
