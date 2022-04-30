@@ -1,16 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Apresentacao;
 
+import DTOs.ProdutosDTO;
 import Negocio.Produto;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaCadastroProdutos extends javax.swing.JFrame {
 
     public TelaCadastroProdutos() {
         initComponents();
+        PopularTabela();
     }
 
     @SuppressWarnings("unchecked")
@@ -84,20 +84,27 @@ public class TelaCadastroProdutos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Descrição", "Valor"
+                "id", "Descrição", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane3.setViewportView(TabelaProdutos);
         if (TabelaProdutos.getColumnModel().getColumnCount() > 0) {
-            TabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(200);
+            TabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(200);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,14 +171,16 @@ public class TelaCadastroProdutos extends javax.swing.JFrame {
 
     private void ButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAdicionarActionPerformed
         Produto.Salvar(TextoDescricao.getText(), (int) TextoValor.getValue());
+        PopularTabela();
     }//GEN-LAST:event_ButtonAdicionarActionPerformed
 
     private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
-        // TODO add your handling code here:
+        PopularTabela();
     }//GEN-LAST:event_ButtonSalvarActionPerformed
 
     private void ButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExcluirActionPerformed
-        // TODO add your handling code here:
+        Produto.Excluir(Integer.parseInt(TabelaProdutos.getModel().getValueAt(TabelaProdutos.getSelectedRow(), 0).toString()));
+        PopularTabela();
     }//GEN-LAST:event_ButtonExcluirActionPerformed
 
     public static void main(String args[]) {
@@ -180,6 +189,17 @@ public class TelaCadastroProdutos extends javax.swing.JFrame {
                 new TelaCadastroProdutos().setVisible(true);
             }
         });
+    }
+
+    public void PopularTabela() {
+        ((DefaultTableModel) TabelaProdutos.getModel()).setRowCount(0);
+        ArrayList<ProdutosDTO> produtos = Produto.RetornaProdutos();
+        DefaultTableModel dadosDaTabela = (DefaultTableModel) TabelaProdutos.getModel();
+
+        for (ProdutosDTO produto : produtos) {
+            String dados[] = {produto.id.toString(), produto.descricao, produto.preco.toString()};
+            dadosDaTabela.addRow(dados);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

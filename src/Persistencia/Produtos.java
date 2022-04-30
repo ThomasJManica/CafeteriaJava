@@ -10,7 +10,8 @@ public class Produtos {
     public static ArrayList<ProdutosDTO> RetornaProdutos() {
         ArrayList<ProdutosDTO> produtos = new ArrayList();
         String query = "select id, descricao, preco"
-                + "  from produtos ";
+                + "  from produtos "
+                + " order by 1";
         try (Statement stmt = ConexaoPostgres.CriaConexao();
                 ResultSet rs = stmt.executeQuery(query);) {
 
@@ -34,6 +35,19 @@ public class Produtos {
                 + "('"
                 + descricao + "', "
                 + valor + ")";
+        try (Statement stmt = ConexaoPostgres.CriaConexao()) {
+
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean ExcluirProduto(Integer id) {
+        String query = "delete from produtos"
+                + " where id = " + id;
         try (Statement stmt = ConexaoPostgres.CriaConexao()) {
 
             stmt.executeUpdate(query);

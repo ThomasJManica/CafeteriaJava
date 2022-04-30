@@ -1,9 +1,9 @@
 package DTOs;
 
 public class ProdutosDTO {
-    public int id;
+    public Integer id;
     public String descricao;
-    public int preco;
+    public Integer preco;
     
     @Override
     public String toString(){

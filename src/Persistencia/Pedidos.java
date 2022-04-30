@@ -1,8 +1,6 @@
 package Persistencia;
 
 import DTOs.PedidosDTO;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -30,18 +28,21 @@ public class Pedidos {
 
     public static ArrayList<PedidosDTO> PedidosDoUsuario(int idDoUsuario) {
         ArrayList<PedidosDTO> pedidos = new ArrayList();
-        String query = "select produtos.descricao, "
+        String query = "select pedidos.id,"
+                + "       produtos.descricao, "
                 + "       pedidos.quantidade, "
                 + "       pedidos.quantidade * produtos.preco preco, "
                 + "       pedidos.data_do_pedido data"
                 + "  from pedidos, produtos"
                 + " where pedidos.id_produto = produtos.id"
-                + "   and pedidos.id_usuario = " + idDoUsuario;
+                + "   and pedidos.id_usuario = " + idDoUsuario 
+                + " order by 1";
         try (Statement stmt = ConexaoPostgres.CriaConexao();
                 ResultSet rs = stmt.executeQuery(query);) {
 
             while (rs.next()) {
                 PedidosDTO pedidosdto = new PedidosDTO();
+                pedidosdto.id = rs.getInt("id");
                 pedidosdto.descricao = rs.getString("descricao");
                 pedidosdto.quantidade = rs.getInt("quantidade");
                 pedidosdto.preco = rs.getInt("preco");
@@ -52,5 +53,18 @@ public class Pedidos {
             System.out.println(e);
         }
         return pedidos;
+    }
+    
+    public static boolean ExcluirProduto(Integer id) {
+        String query = "delete from pedidos"
+                + " where id = " + id;
+        try (Statement stmt = ConexaoPostgres.CriaConexao()) {
+
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
     }
 }

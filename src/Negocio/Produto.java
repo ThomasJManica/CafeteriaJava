@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class Produto {
 
-    public static ArrayList<ProdutosDTO> RetornaComidas() {
+    public static ArrayList<ProdutosDTO> RetornaProdutos() {
         return Produtos.RetornaProdutos();
     }
 
@@ -22,6 +22,17 @@ public class Produto {
 
         if (Produtos.SalvarProduto(descricao, valor)) {
             JPanel alerta = new TelaAlerta("Produto salvo com sucesso.");
+            alerta.setVisible(true);
+        }
+    }
+
+    public static void Excluir(Integer id) {
+        if (id == 0) {
+            JPanel alerta = new TelaAlerta("Id nulo.");
+            alerta.setVisible(true);
+        }
+        if (!Produtos.ExcluirProduto(id)) {
+            JPanel alerta = new TelaAlerta("Erro ao excluir o produto.");
             alerta.setVisible(true);
         }
     }

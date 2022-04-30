@@ -19,4 +19,15 @@ public class PedidosUsuario {
             alerta.setVisible(true);
         }
     }
+    
+    public static void Excluir(Integer id) {
+        if (id == 0) {
+            JPanel alerta = new TelaAlerta("Id nulo.");
+            alerta.setVisible(true);
+        }
+        if (!Pedidos.ExcluirProduto(id)) {
+            JPanel alerta = new TelaAlerta("Erro ao excluir o pedido.");
+            alerta.setVisible(true);
+        }
+    }
 }

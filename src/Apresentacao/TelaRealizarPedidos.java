@@ -1,10 +1,13 @@
 package Apresentacao;
 
+import DTOs.PedidosDTO;
 import DTOs.ProdutosDTO;
 import Negocio.PedidosUsuario;
 import Negocio.Produto;
+import Persistencia.Pedidos;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaRealizarPedidos extends javax.swing.JFrame {
 
@@ -14,10 +17,11 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
         initComponents();
         this.idDoUsuario = idDoUsuario;
         ArrayList<ProdutosDTO> produtos = new ArrayList();
-        produtos = Produto.RetornaComidas();
+        produtos = Produto.RetornaProdutos();
         for (ProdutosDTO produto : produtos) {
             ComboBoxComida.addItem(produto);
         }
+        CarregarPedidos();
     }
 
     @SuppressWarnings("unchecked")
@@ -28,9 +32,12 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
         ButtonFazerPedido = new javax.swing.JButton();
         ButtonCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        ButtonPedidos = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         TextoQuantidade = new javax.swing.JSpinner();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TabelaPedidos = new javax.swing.JTable();
+        ButtonCancelarPedido = new javax.swing.JButton();
+        ButtonAlterarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(null);
@@ -57,57 +64,93 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
 
         jLabel1.setText("Comida:");
 
-        ButtonPedidos.setText("Pedidos");
-        ButtonPedidos.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Quantidade:");
+
+        TabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Produto", "Quantidade", "Preço total", "Data do pedido"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TabelaPedidos);
+
+        ButtonCancelarPedido.setText("Cancelar pedido");
+        ButtonCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonPedidosActionPerformed(evt);
+                ButtonCancelarPedidoActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Quantidade:");
+        ButtonAlterarPedido.setText("Alterar pedido");
+        ButtonAlterarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAlterarPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ButtonCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
-                        .addComponent(ButtonPedidos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonFazerPedido))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TextoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(ComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(ButtonCancelar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonFazerPedido)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonAlterarPedido)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonCancelarPedido))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(ComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(TextoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonFazerPedido)
-                    .addComponent(ButtonPedidos)
-                    .addComponent(ButtonCancelar))
-                .addGap(21, 21, 21))
+                    .addComponent(ButtonCancelarPedido)
+                    .addComponent(ButtonAlterarPedido))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addComponent(ButtonCancelar)
+                .addContainerGap())
         );
 
         pack();
@@ -115,6 +158,7 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
 
     private void ButtonFazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonFazerPedidoActionPerformed
         PedidosUsuario.FazerPedido((ProdutosDTO) ComboBoxComida.getSelectedItem(), (int) TextoQuantidade.getValue(), idDoUsuario);
+        CarregarPedidos();
     }//GEN-LAST:event_ButtonFazerPedidoActionPerformed
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
@@ -123,14 +167,18 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_ButtonCancelarActionPerformed
 
-    private void ButtonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPedidosActionPerformed
-        JFrame pedidos = new TelaPedidos(idDoUsuario);
-        pedidos.setVisible(true);
-    }//GEN-LAST:event_ButtonPedidosActionPerformed
-
     private void ComboBoxComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxComidaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxComidaActionPerformed
+
+    private void ButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarPedidoActionPerformed
+        PedidosUsuario.Excluir(Integer.parseInt(TabelaPedidos.getModel().getValueAt(TabelaPedidos.getSelectedRow(), 0).toString()));
+        CarregarPedidos();
+    }//GEN-LAST:event_ButtonCancelarPedidoActionPerformed
+
+    private void ButtonAlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAlterarPedidoActionPerformed
+        CarregarPedidos();
+    }//GEN-LAST:event_ButtonAlterarPedidoActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -159,13 +207,27 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
         });
     }
 
+    public void CarregarPedidos() {
+        ((DefaultTableModel) TabelaPedidos.getModel()).setRowCount(0);
+        ArrayList<PedidosDTO> pedidos = Pedidos.PedidosDoUsuario(idDoUsuario);
+        DefaultTableModel dadosDaTabela = (DefaultTableModel) TabelaPedidos.getModel();
+
+        for (PedidosDTO pedido : pedidos) {
+            String dados[] = {pedido.id.toString(), pedido.descricao, pedido.quantidade.toString(), pedido.preco.toString(), pedido.data_do_pedido.toString()};
+            dadosDaTabela.addRow(dados);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonAlterarPedido;
     private javax.swing.JButton ButtonCancelar;
+    private javax.swing.JButton ButtonCancelarPedido;
     private javax.swing.JButton ButtonFazerPedido;
-    private javax.swing.JButton ButtonPedidos;
     private javax.swing.JComboBox<ProdutosDTO> ComboBoxComida;
+    private javax.swing.JTable TabelaPedidos;
     private javax.swing.JSpinner TextoQuantidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
