@@ -82,4 +82,33 @@ public class Pedidos {
         }
         return true;
     }
+    
+    public static ArrayList<PedidosDTO> RetornaPedidosPeloIdDoProduto(int idProduto, int idUsuario){
+        ArrayList<PedidosDTO> pedidos = new ArrayList();
+        String query = "select pedidos.id,"
+                + "       produtos.descricao, "
+                + "       pedidos.quantidade, "
+                + "       pedidos.quantidade * produtos.preco preco, "
+                + "       pedidos.data_do_pedido data"
+                + "  from pedidos, produtos"
+                + " where pedidos.id_produto = produtos.id"
+                + "   and pedidos.id_usuario = " + idUsuario
+                + "   and pedidos.id_produto = " + idProduto
+                + " order by 1";
+        try ( Statement stmt = ConexaoPostgres.CriaConexao();  ResultSet rs = stmt.executeQuery(query);) {
+
+            while (rs.next()) {
+                PedidosDTO pedidosdto = new PedidosDTO();
+                pedidosdto.id = rs.getInt("id");
+                pedidosdto.descricao = rs.getString("descricao");
+                pedidosdto.quantidade = rs.getInt("quantidade");
+                pedidosdto.preco = rs.getInt("preco");
+                pedidosdto.data_do_pedido = rs.getDate("data");
+                pedidos.add(pedidosdto);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return pedidos;
+    }
 }

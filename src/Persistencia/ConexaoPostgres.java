@@ -3,6 +3,7 @@ package Persistencia;
 import Apresentacao.TelaAlerta;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JPanel;
 
@@ -16,7 +17,7 @@ public class ConexaoPostgres {
         try {
             Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
             return con.createStatement();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             JPanel alerta = new TelaAlerta("Erro ao conectar com o banco de dados, informa o setor de TI reponsável: \n" + ex);
             alerta.setVisible(true);
         }

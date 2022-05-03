@@ -45,7 +45,6 @@ public class TelaCadastroProdutos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(300, 282));
 
         jLabel1.setText("Descrição:");
 

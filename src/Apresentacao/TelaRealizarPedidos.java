@@ -38,6 +38,8 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
         TabelaPedidos = new javax.swing.JTable();
         ButtonCancelarPedido = new javax.swing.JButton();
         ButtonAlterarPedido = new javax.swing.JButton();
+        ButtonPesquisar = new javax.swing.JButton();
+        ButtonLimparPesquisa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(null);
@@ -105,6 +107,20 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
             }
         });
 
+        ButtonPesquisar.setText("Pesquisar");
+        ButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonPesquisarActionPerformed(evt);
+            }
+        });
+
+        ButtonLimparPesquisa.setText("Limpar pesquisa");
+        ButtonLimparPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonLimparPesquisaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,21 +130,27 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TextoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(ButtonCancelar)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButtonFazerPedido)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TextoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ComboBoxComida, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(ButtonCancelar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ButtonFazerPedido)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonAlterarPedido)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonCancelarPedido)))
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonAlterarPedido)
+                        .addComponent(ButtonPesquisar)
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonCancelarPedido))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(ButtonLimparPesquisa))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +167,9 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonFazerPedido)
                     .addComponent(ButtonCancelarPedido)
-                    .addComponent(ButtonAlterarPedido))
+                    .addComponent(ButtonAlterarPedido)
+                    .addComponent(ButtonPesquisar)
+                    .addComponent(ButtonLimparPesquisa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                 .addGap(15, 15, 15)
@@ -177,9 +201,17 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonCancelarPedidoActionPerformed
 
     private void ButtonAlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAlterarPedidoActionPerformed
-        PedidosUsuario.Alterar(Integer.parseInt(TabelaPedidos.getModel().getValueAt(TabelaPedidos.getSelectedRow(), 0).toString()),(ProdutosDTO) ComboBoxComida.getSelectedItem(), (int) TextoQuantidade.getValue());
+        PedidosUsuario.Alterar(Integer.parseInt(TabelaPedidos.getModel().getValueAt(TabelaPedidos.getSelectedRow(), 0).toString()), (ProdutosDTO) ComboBoxComida.getSelectedItem(), (int) TextoQuantidade.getValue());
         CarregarPedidos();
     }//GEN-LAST:event_ButtonAlterarPedidoActionPerformed
+
+    private void ButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPesquisarActionPerformed
+        MostraPedidosDoProduto((ProdutosDTO) ComboBoxComida.getSelectedItem());
+    }//GEN-LAST:event_ButtonPesquisarActionPerformed
+
+    private void ButtonLimparPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLimparPesquisaActionPerformed
+        CarregarPedidos();
+    }//GEN-LAST:event_ButtonLimparPesquisaActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -219,11 +251,25 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
         }
     }
 
+    public void MostraPedidosDoProduto(ProdutosDTO produto) {
+        ((DefaultTableModel) TabelaPedidos.getModel()).setRowCount(0);
+        ArrayList<PedidosDTO> pedidos = Pedidos.RetornaPedidosPeloIdDoProduto(produto.id, idDoUsuario);
+        DefaultTableModel dadosDaTabela = (DefaultTableModel) TabelaPedidos.getModel();
+
+        for (PedidosDTO pedido : pedidos) {
+            String dados[] = {pedido.id.toString(), pedido.descricao, pedido.quantidade.toString(), pedido.preco.toString(), pedido.data_do_pedido.toString()};
+            dadosDaTabela.addRow(dados);
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAlterarPedido;
     private javax.swing.JButton ButtonCancelar;
     private javax.swing.JButton ButtonCancelarPedido;
     private javax.swing.JButton ButtonFazerPedido;
+    private javax.swing.JButton ButtonLimparPesquisa;
+    private javax.swing.JButton ButtonPesquisar;
     private javax.swing.JComboBox<ProdutosDTO> ComboBoxComida;
     private javax.swing.JTable TabelaPedidos;
     private javax.swing.JSpinner TextoQuantidade;
