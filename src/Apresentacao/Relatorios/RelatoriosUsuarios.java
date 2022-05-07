@@ -1,6 +1,7 @@
 package Apresentacao.Relatorios;
 
 import Apresentacao.TelaAdmin;
+import Apresentacao.TelaUsuarios;
 import Persistencia.ConexaoPostgres;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,10 +15,13 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class RelatoriosAdmin extends javax.swing.JFrame {
+public class RelatoriosUsuarios extends javax.swing.JFrame {
 
-    public RelatoriosAdmin() {
+    int idDoUsuario;
+
+    public RelatoriosUsuarios(int idDoUsuario) {
         initComponents();
+        this.idDoUsuario = idDoUsuario;
     }
 
     @SuppressWarnings("unchecked")
@@ -69,25 +73,26 @@ public class RelatoriosAdmin extends javax.swing.JFrame {
 
     private void ButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUsuariosActionPerformed
         try {
-            JasperReport jasperReport = JasperCompileManager.compileReport("src\\Relatorios\\usuarios.jrxml");
-            Map<String, Object> parameters = new HashMap<>();
+            JasperReport jasperReport = JasperCompileManager.compileReport("src\\Relatorios\\pedidos.jrxml");
+            Map parameters = new HashMap();
+            parameters.put("id_usuario_parametro", idDoUsuario);
             JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, ConexaoPostgres.RetornaConexao());
             JasperViewer.viewReport(print, false);
         } catch (JRException ex) {
-            Logger.getLogger(RelatoriosAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatoriosUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ButtonUsuariosActionPerformed
 
     private void ButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonVoltarActionPerformed
-        JFrame telaAdmin = new TelaAdmin();
-        telaAdmin.setVisible(true);
+        JFrame telaUsuarios = new TelaUsuarios(idDoUsuario);
+        telaUsuarios.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_ButtonVoltarActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RelatoriosAdmin().setVisible(true);
+                new RelatoriosUsuarios(0).setVisible(true);
             }
         });
     }
