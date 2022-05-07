@@ -1,7 +1,6 @@
 package Apresentacao;
 
 public class TelaAlerta extends javax.swing.JPanel {
-
     public TelaAlerta(String texto) {
         initComponents();
         TextoAlerta.setText(texto);

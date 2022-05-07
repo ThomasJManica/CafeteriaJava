@@ -1,6 +1,5 @@
 package Main;
 
-import Ajudantes.Criptografia;
 import Apresentacao.TelaLogin;
 import Persistencia.PrimeiraConfiguracaoBancoDeDados;
 import javax.swing.JFrame;

@@ -15,8 +15,7 @@ public class Usuarios {
                 + usuario + "', '"
                 + email + "', '"
                 + senha + "')";
-        try (Statement stmt = ConexaoPostgres.CriaConexao()) {
-
+        try ( Statement stmt = ConexaoPostgres.CriaConexao()) {
             stmt.executeUpdate(query);
         } catch (Exception e) {
             System.out.println(e);
@@ -27,9 +26,7 @@ public class Usuarios {
         String query = "select count(usuario) quantidate"
                 + "  from usuarios "
                 + " where usuario = '" + usuario + "'";
-        try (Statement stmt = ConexaoPostgres.CriaConexao();
-                ResultSet rs = stmt.executeQuery(query);) {
-
+        try ( Statement stmt = ConexaoPostgres.CriaConexao();  ResultSet rs = stmt.executeQuery(query);) {
             if (rs.next()) {
                 return rs.getInt("quantidate") > 0;
             }
@@ -44,9 +41,7 @@ public class Usuarios {
                 + "  from usuarios "
                 + " where usuario = '" + usuario
                 + "'   and senha = '" + senha + "'";
-        try (Statement stmt = ConexaoPostgres.CriaConexao();
-                ResultSet rs = stmt.executeQuery(query);) {
-
+        try ( Statement stmt = ConexaoPostgres.CriaConexao();  ResultSet rs = stmt.executeQuery(query);) {
             if (rs.next()) {
                 return rs.getInt("id");
             }
@@ -60,9 +55,7 @@ public class Usuarios {
         String query = "select senha"
                 + "  from usuarios "
                 + " where usuario = '" + usuario + "'";
-        try (Statement stmt = ConexaoPostgres.CriaConexao();
-                ResultSet rs = stmt.executeQuery(query);) {
-
+        try ( Statement stmt = ConexaoPostgres.CriaConexao();  ResultSet rs = stmt.executeQuery(query);) {
             if (rs.next()) {
                 return rs.getString("senha");
             }
@@ -76,9 +69,7 @@ public class Usuarios {
         ArrayList<String> usuarios = new ArrayList();
         String query = "select usuario"
                 + "  from usuarios ";
-        try (Statement stmt = ConexaoPostgres.CriaConexao();
-                ResultSet rs = stmt.executeQuery(query);) {
-
+        try ( Statement stmt = ConexaoPostgres.CriaConexao();  ResultSet rs = stmt.executeQuery(query);) {
             while (rs.next()) {
                 usuarios.add(rs.getString("usuario"));
             }
@@ -93,9 +84,7 @@ public class Usuarios {
         String query = "select usuario"
                 + "  from usuarios "
                 + " where senha = '" + senha + "'";
-        try (Statement stmt = ConexaoPostgres.CriaConexao();
-                ResultSet rs = stmt.executeQuery(query);) {
-
+        try ( Statement stmt = ConexaoPostgres.CriaConexao();  ResultSet rs = stmt.executeQuery(query);) {
             if (rs.next()) {
                 return rs.getString("usuario");
             }
@@ -103,5 +92,43 @@ public class Usuarios {
             System.out.println(e);
         }
         return "";
+    }
+
+    public static void DeletarConta(int idDoUsuario) {
+        String query = "delete from usuarios"
+                + " where id = " + idDoUsuario;
+        try ( Statement stmt = ConexaoPostgres.CriaConexao()) {
+
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static boolean SenhaEhValida(int id, String senha) {
+        String query = "select count(usuario) quantidate"
+                + "  from usuarios "
+                + " where id = " + id
+                + "   and senha = '" + senha + "'";
+        try ( Statement stmt = ConexaoPostgres.CriaConexao();  ResultSet rs = stmt.executeQuery(query);) {
+
+            if (rs.next()) {
+                return rs.getInt("quantidate") > 0;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return true;
+    }
+
+    public static void AlterarSenha(int idDoUsuario, String senha) {
+        String query = "update usuarios"
+                + " set senha = '" + senha + "'"
+                + " where id = " + idDoUsuario;
+        try ( Statement stmt = ConexaoPostgres.CriaConexao()) {
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

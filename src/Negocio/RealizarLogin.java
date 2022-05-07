@@ -3,7 +3,7 @@ package Negocio;
 import Ajudantes.Criptografia;
 import Apresentacao.TelaAdmin;
 import Apresentacao.TelaAlerta;
-import Apresentacao.TelaRealizarPedidos;
+import Apresentacao.TelaUsuarios;
 import Persistencia.Usuarios;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,14 +15,14 @@ public class RealizarLogin {
     public static boolean Entrar(String usuario, String senha, int tentativas) {
         if (usuario.equals("")
                 || senha.equals("")) {
-            JPanel alerta = new TelaAlerta("Usuário e/ou senha inválido.");
+            TelaAlerta alerta = new TelaAlerta("Usuário e/ou senha inválido.");
             alerta.setVisible(true);
             return false;
         }
 
         char existeOLogin = ExisteOLogin(usuario, Criptografia.criptografiaBase64Encoder(senha), tentativas);
         if (existeOLogin == 'N') {
-            JPanel alerta = new TelaAlerta("Usuário e/ou senha inválido.");
+            TelaAlerta alerta = new TelaAlerta("Usuário e/ou senha inválido.");
             alerta.setVisible(true);
             return false;
         }
@@ -31,11 +31,11 @@ public class RealizarLogin {
         }
 
         if (existeOLogin == 'A') {
-            JFrame realizarPedidos = new TelaAdmin();
-            realizarPedidos.setVisible(true);
+            JFrame telaAdmin = new TelaAdmin();
+            telaAdmin.setVisible(true);
         } else {
-            JFrame realizarPedidos = new TelaRealizarPedidos(idDoUsuario);
-            realizarPedidos.setVisible(true);
+            JFrame telaUsuarios = new TelaUsuarios(idDoUsuario);
+            telaUsuarios.setVisible(true);
         }
         return true;
     }
@@ -51,14 +51,14 @@ public class RealizarLogin {
 
         if (tentativas == 3 && Usuarios.UsuarioExiste(usuario)) {
             String senhaCertaDoUsuario = Usuarios.RetornaSenhaPeloUsuario(usuario);
-            JPanel alerta = new TelaAlerta("Senha inválida de novo cara.\nSua senha é: " + senhaCertaDoUsuario + ".");
+            TelaAlerta alerta = new TelaAlerta("Senha inválida de novo cara.\nSua senha é: " + senhaCertaDoUsuario + ".");
             alerta.setVisible(true);
             return 'U';
         }
 
         if (tentativas > 3 && Usuarios.UsuarioExiste(usuario)) {
             String senhaCertaDoUsuario = Usuarios.RetornaSenhaPeloUsuario(usuario);
-            JPanel alerta = new TelaAlerta("Não adianta falar contigo...\nSua senha é: " + senhaCertaDoUsuario + ".");
+            TelaAlerta alerta = new TelaAlerta("Não adianta falar contigo...\nSua senha é: " + senhaCertaDoUsuario + ".");
             alerta.setVisible(true);
             return 'U';
         }
@@ -66,7 +66,7 @@ public class RealizarLogin {
         String usuarioDonoDaSenha = Usuarios.RetornaUsuarioPelaSenha(senhaCriptografada);
 
         if (!usuarioDonoDaSenha.equals("")) {
-            JPanel alerta = new TelaAlerta("Senha inválida.\nEssa senha é do usuário: " + usuarioDonoDaSenha + ".");
+            TelaAlerta alerta = new TelaAlerta("Senha inválida.\nEssa senha é do usuário: " + usuarioDonoDaSenha + ".");
             alerta.setVisible(true);
             return 'U';
         }

@@ -186,7 +186,7 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonFazerPedidoActionPerformed
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
-        JFrame login = new TelaLogin();
+        JFrame login = new TelaUsuarios(idDoUsuario);
         login.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_ButtonCancelarActionPerformed
