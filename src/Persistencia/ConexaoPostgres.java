@@ -23,4 +23,14 @@ public class ConexaoPostgres {
         }
         return null;
     }
+    
+    public static Connection RetornaConexao() {
+        try {
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException ex) {
+            JPanel alerta = new TelaAlerta("Erro ao conectar com o banco de dados, informa o setor de TI reponsável: \n" + ex);
+            alerta.setVisible(true);
+        }
+        return null;
+    }
 }

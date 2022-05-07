@@ -1,5 +1,6 @@
 package Apresentacao;
 
+import Apresentacao.Relatorios.RelatoriosAdmin;
 import javax.swing.JFrame;
 
 public class TelaAdmin extends javax.swing.JFrame {
@@ -14,6 +15,7 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         ButtonVoltar = new javax.swing.JButton();
         ButtonProdutos = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -31,6 +33,13 @@ public class TelaAdmin extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Relatórios");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -39,14 +48,19 @@ public class TelaAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonVoltar)
-                    .addComponent(ButtonProdutos))
-                .addContainerGap(308, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonProdutos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ButtonProdutos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonProdutos)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(ButtonVoltar)
                 .addContainerGap())
@@ -67,6 +81,12 @@ public class TelaAdmin extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_ButtonProdutosActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFrame relatoriosAdmin = new RelatoriosAdmin();
+        relatoriosAdmin.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -78,5 +98,6 @@ public class TelaAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonProdutos;
     private javax.swing.JButton ButtonVoltar;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
