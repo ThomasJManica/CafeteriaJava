@@ -1,5 +1,6 @@
 package Negocio;
 
+import Ajudantes.Criptografia;
 import Apresentacao.TelaAlerta;
 import Persistencia.Usuarios;
 import javax.swing.JPanel;
@@ -33,7 +34,7 @@ public class RealizarCadastro {
             return false;
         }
 
-        Usuarios.Salvar(nome, usuario, senha, email);
+        Usuarios.Salvar(nome, usuario, Criptografia.criptografiaBase64Encoder(senha), email);
         return true;
     }
 }

@@ -1,5 +1,6 @@
 package Negocio;
 
+import Ajudantes.Criptografia;
 import Apresentacao.TelaAdmin;
 import Apresentacao.TelaAlerta;
 import Apresentacao.TelaRealizarPedidos;
@@ -19,7 +20,7 @@ public class RealizarLogin {
             return false;
         }
 
-        char existeOLogin = ExisteOLogin(usuario, senha, tentativas);
+        char existeOLogin = ExisteOLogin(usuario, Criptografia.criptografiaBase64Encoder(senha), tentativas);
         if (existeOLogin == 'N') {
             JPanel alerta = new TelaAlerta("Usuário e/ou senha inválido.");
             alerta.setVisible(true);
@@ -39,8 +40,8 @@ public class RealizarLogin {
         return true;
     }
 
-    private static char ExisteOLogin(String usuario, String senha, int tentativas) {
-        idDoUsuario = Usuarios.RetornaIdDoUsuario(usuario, senha);
+    private static char ExisteOLogin(String usuario, String senhaCriptografada, int tentativas) {
+        idDoUsuario = Usuarios.RetornaIdDoUsuario(usuario, senhaCriptografada);
         if (idDoUsuario != 0) {
             if (usuario.equals("admin")) {
                 return 'A';
@@ -62,7 +63,7 @@ public class RealizarLogin {
             return 'U';
         }
 
-        String usuarioDonoDaSenha = Usuarios.RetornaUsuarioPelaSenha(senha);
+        String usuarioDonoDaSenha = Usuarios.RetornaUsuarioPelaSenha(senhaCriptografada);
 
         if (!usuarioDonoDaSenha.equals("")) {
             JPanel alerta = new TelaAlerta("Senha inválida.\nEssa senha é do usuário: " + usuarioDonoDaSenha + ".");

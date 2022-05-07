@@ -1,9 +1,9 @@
 package Negocio;
 
+import Ajudantes.Criptografia;
 import Apresentacao.TelaAlerta;
 import Persistencia.Usuarios;
 import java.util.ArrayList;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class RecuperarDados {
@@ -21,7 +21,7 @@ public class RecuperarDados {
             JPanel alerta = new TelaAlerta("Usuário inválido.");
             alerta.setVisible(true);
         }
-        return senha;
+        return Criptografia.descriptografiaBase64Decoder(senha);
     }
 
     public static String RecuperarUsuarios() {
