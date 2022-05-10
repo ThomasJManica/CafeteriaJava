@@ -26,10 +26,10 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ButtonUsuarios" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="ButtonPedidos" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="ButtonVoltar" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="253" max="32767" attributes="0"/>
+              <EmptySpace pref="267" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -37,7 +37,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="ButtonUsuarios" min="-2" max="-2" attributes="0"/>
+              <Component id="ButtonPedidos" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="244" max="32767" attributes="0"/>
               <Component id="ButtonVoltar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -46,12 +46,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="ButtonUsuarios">
+    <Component class="javax.swing.JButton" name="ButtonPedidos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Usu&#xe1;rios cadastrados"/>
+        <Property name="text" type="java.lang.String" value="Pedidos realizados"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonUsuariosActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonPedidosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ButtonVoltar">

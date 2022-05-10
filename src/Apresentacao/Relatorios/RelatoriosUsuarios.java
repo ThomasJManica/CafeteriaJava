@@ -28,15 +28,15 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ButtonUsuarios = new javax.swing.JButton();
+        ButtonPedidos = new javax.swing.JButton();
         ButtonVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ButtonUsuarios.setText("Usuários cadastrados");
-        ButtonUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        ButtonPedidos.setText("Pedidos realizados");
+        ButtonPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonUsuariosActionPerformed(evt);
+                ButtonPedidosActionPerformed(evt);
             }
         });
 
@@ -54,15 +54,15 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonUsuarios)
+                    .addComponent(ButtonPedidos)
                     .addComponent(ButtonVoltar))
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ButtonUsuarios)
+                .addComponent(ButtonPedidos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
                 .addComponent(ButtonVoltar)
                 .addContainerGap())
@@ -71,7 +71,7 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUsuariosActionPerformed
+    private void ButtonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPedidosActionPerformed
         try {
             JasperReport jasperReport = JasperCompileManager.compileReport("src\\Relatorios\\pedidos.jrxml");
             Map parameters = new HashMap();
@@ -81,7 +81,7 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
         } catch (JRException ex) {
             Logger.getLogger(RelatoriosUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_ButtonUsuariosActionPerformed
+    }//GEN-LAST:event_ButtonPedidosActionPerformed
 
     private void ButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonVoltarActionPerformed
         JFrame telaUsuarios = new TelaUsuarios(idDoUsuario);
@@ -98,7 +98,7 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonUsuarios;
+    private javax.swing.JButton ButtonPedidos;
     private javax.swing.JButton ButtonVoltar;
     // End of variables declaration//GEN-END:variables
 }
