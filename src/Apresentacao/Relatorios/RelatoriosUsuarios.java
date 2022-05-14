@@ -30,6 +30,8 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
 
         ButtonPedidos = new javax.swing.JButton();
         ButtonVoltar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        TextoValor = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +49,11 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Acima de qual valor:");
+
+        TextoValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#######0"))));
+        TextoValor.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -54,15 +61,25 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonPedidos)
-                    .addComponent(ButtonVoltar))
-                .addContainerGap(267, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonPedidos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TextoValor, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonVoltar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ButtonPedidos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonPedidos)
+                    .addComponent(jLabel1)
+                    .addComponent(TextoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
                 .addComponent(ButtonVoltar)
                 .addContainerGap())
@@ -76,6 +93,7 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
             JasperReport jasperReport = JasperCompileManager.compileReport("src\\Relatorios\\pedidos.jrxml");
             Map parameters = new HashMap();
             parameters.put("id_usuario_parametro", idDoUsuario);
+            parameters.put("valor", Integer.parseInt(TextoValor.getText()));
             JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, ConexaoPostgres.RetornaConexao());
             JasperViewer.viewReport(print, false);
         } catch (JRException ex) {
@@ -100,5 +118,7 @@ public class RelatoriosUsuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonPedidos;
     private javax.swing.JButton ButtonVoltar;
+    private javax.swing.JFormattedTextField TextoValor;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
