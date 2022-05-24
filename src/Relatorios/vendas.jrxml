@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7bf633eb-8e58-4434-9ba1-a8e8b9caa0a3">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[cHJvZHV0b3MgLDE1LDQxLGZlOTI0MzYxLTY2NTAtNDMyYi04NDU2LTI3NzFiMjVkZjBmNDtwZWRp
-ZG9zICwxMzEsMTUsZTM2OTE4NmYtZDZiYi00ZWYyLWE0M2UtZjAyZjVhNjdiYzQ3O3VzdWFyaW9z
-ICwyODEsMTUsZDc4YWNlMjItOGU3Zi00NzY3LTgzMjktMzc5MDNlMGE0ZjFjOw==]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Cafeteria"/>
 	<parameter name="valor" class="java.lang.Integer"/>
 	<queryString language="SQL">
@@ -18,9 +14,9 @@ FROM pedidos,
 WHERE 
 	 pedidos.id_usuario = usuarios.id 
 	 AND pedidos.id_produto = produtos.id 
-	 AND pedidos.quantidade > $P{valor} 
-GROUP BY 1
-ORDER BY 2 DESC]]>
+	 AND pedidos.quantidade * produtos.preco > $P{valor} 
+GROUP BY 1, 2
+ORDER BY 3 DESC]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>

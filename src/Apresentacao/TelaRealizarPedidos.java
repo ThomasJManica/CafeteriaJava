@@ -57,7 +57,7 @@ public class TelaRealizarPedidos extends javax.swing.JFrame {
             }
         });
 
-        ButtonCancelar.setText("Cancelar");
+        ButtonCancelar.setText("Voltar");
         ButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonCancelarActionPerformed(evt);
