@@ -4,6 +4,7 @@
  */
 package Apresentacao;
 
+import Apresentacao.Relatorios.RelatoriosUsuarios;
 import javax.swing.JFrame;
 
 /**
@@ -25,6 +26,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
         ButtonPedidos = new javax.swing.JButton();
         ButtonSair = new javax.swing.JButton();
         ButtonConta = new javax.swing.JButton();
+        ButtonRelatorios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +51,13 @@ public class TelaUsuarios extends javax.swing.JFrame {
             }
         });
 
+        ButtonRelatorios.setText("Relatorios");
+        ButtonRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonRelatoriosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,7 +69,9 @@ public class TelaUsuarios extends javax.swing.JFrame {
                     .addComponent(ButtonSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(ButtonConta, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(ButtonRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -68,7 +79,8 @@ public class TelaUsuarios extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonPedidos)
-                    .addComponent(ButtonConta))
+                    .addComponent(ButtonConta)
+                    .addComponent(ButtonRelatorios))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
                 .addComponent(ButtonSair)
                 .addContainerGap())
@@ -95,6 +107,12 @@ public class TelaUsuarios extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_ButtonContaActionPerformed
 
+    private void ButtonRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRelatoriosActionPerformed
+        JFrame relatoriosUsuarios = new RelatoriosUsuarios(idDoUsuario);
+        relatoriosUsuarios.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_ButtonRelatoriosActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -107,6 +125,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonConta;
     private javax.swing.JButton ButtonPedidos;
+    private javax.swing.JButton ButtonRelatorios;
     private javax.swing.JButton ButtonSair;
     // End of variables declaration//GEN-END:variables
 }
